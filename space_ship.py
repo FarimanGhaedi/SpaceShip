@@ -1,5 +1,6 @@
 import sys
 import pygame
+from settings import Settings
 
 
 class SpaceShip:
@@ -8,7 +9,10 @@ class SpaceShip:
     def __init__(self):
         """Initialize the game, and create game resources."""
         pygame.init()
-        self.screen = pygame.display.set_mode((1200, 800))
+        self.clock = pygame.time.Clock()
+        self.settings = Settings()
+        self.screen = pygame.display.set_mode(self.settings.screen_size)
+        self.background_color = self.settings.background_color
         pygame.display.set_caption("Space Ship")
 
     def run_game(self):
@@ -19,8 +23,10 @@ class SpaceShip:
                 if event.type == pygame.QUIT:
                     sys.exit()
 
+            self.screen.fill(self.background_color)
             # Make the most recently drawn screen visible.
             pygame.display.flip()
+            self.clock.tick(60)
 
 
 if __name__ == '__main__':

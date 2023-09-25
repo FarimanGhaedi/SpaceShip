@@ -1,6 +1,7 @@
 import sys
 import pygame
 from settings import Settings
+from ship import Ship
 
 
 class SpaceShip:
@@ -13,6 +14,7 @@ class SpaceShip:
         self.settings = Settings()
         self.screen = pygame.display.set_mode(self.settings.screen_size)
         self.background_color = self.settings.background_color
+        self.ship = Ship(self)
         pygame.display.set_caption("Space Ship")
 
     def run_game(self):
@@ -24,6 +26,7 @@ class SpaceShip:
                     sys.exit()
 
             self.screen.fill(self.background_color)
+            self.ship.blit_me()
             # Make the most recently drawn screen visible.
             pygame.display.flip()
             self.clock.tick(60)

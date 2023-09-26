@@ -12,7 +12,8 @@ class SpaceShip:
         pygame.init()
         self.clock = pygame.time.Clock()
         self.settings = Settings()
-        self.screen = pygame.display.set_mode(self.settings.screen_size)
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.settings.screen_size = (self.screen.get_rect().width, self.screen.get_rect().height)
         self.background_color = self.settings.background_color
         self.ship = Ship(self)
         pygame.display.set_caption("Space Ship")

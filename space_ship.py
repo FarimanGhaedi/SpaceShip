@@ -21,6 +21,7 @@ class SpaceShip:
         """Start the main loop for the game."""
         while True:
             self._check_events()
+            self.ship.update()
             self._update_screen()
             self.clock.tick(60)
 
@@ -29,6 +30,24 @@ class SpaceShip:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                self._check_key_down_events(event)
+            elif event.type == pygame.KEYUP:
+                self._check_key_up_events(event)
+
+    def _check_key_down_events(self, event):
+        """Respond to key presses."""
+        if event.key == pygame.K_RIGHT:
+            self.ship.move_right = True
+        elif event.key == pygame.K_LEFT:
+            self.ship.move_left = True
+
+    def _check_key_up_events(self, event):
+        """Respond to key releases."""
+        if event.key == pygame.K_RIGHT:
+            self.ship.move_right = False
+        if event.key == pygame.K_LEFT:
+            self.ship.move_left = False
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""

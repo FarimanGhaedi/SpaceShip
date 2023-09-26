@@ -41,6 +41,8 @@ class SpaceShip:
             self.ship.move_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.move_left = True
+        elif event.key == pygame.K_q:
+            sys.exit()
 
     def _check_key_up_events(self, event):
         """Respond to key releases."""

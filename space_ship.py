@@ -2,6 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 
 class SpaceShip:
@@ -16,6 +17,7 @@ class SpaceShip:
         self.settings.screen_size = (self.screen.get_rect().width, self.screen.get_rect().height)
         self.background_color = self.settings.background_color
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
         pygame.display.set_caption("Space Ship")
 
     def run_game(self):
@@ -23,6 +25,7 @@ class SpaceShip:
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
             self.clock.tick(60)
 
@@ -44,6 +47,8 @@ class SpaceShip:
             self.ship.move_left = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
     def _check_key_up_events(self, event):
         """Respond to key releases."""
@@ -52,9 +57,16 @@ class SpaceShip:
         if event.key == pygame.K_LEFT:
             self.ship.move_left = False
 
+    def _fire_bullet(self):
+        """Create a new bullet and add it to the bullets group."""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
+
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill(self.background_color)
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         self.ship.blit_me()
         pygame.display.flip()
 

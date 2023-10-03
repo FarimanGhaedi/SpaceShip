@@ -84,9 +84,15 @@ class SpaceShip:
 
     def _create_fleet(self):
         """Create the fleet of enemies."""
-        # Create an enemy
-        new_enemy = Enemy(self)
-        self.enemies.add(new_enemy)
+        enemy = Enemy(self)
+        enemy_width = enemy.rect.width
+        current_x = enemy_width
+        while current_x < self.settings.screen_size[0] - enemy_width * 1.5:
+            new_enemy = Enemy(self)
+            new_enemy.x = current_x
+            new_enemy.rect.x = current_x
+            self.enemies.add(new_enemy)
+            current_x += enemy_width * 1.5
 
 
 if __name__ == '__main__':

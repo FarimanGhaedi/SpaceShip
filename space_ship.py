@@ -2,6 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
+from enemy import Enemy
 from bullet import Bullet
 
 
@@ -11,14 +12,17 @@ class SpaceShip:
     def __init__(self):
         """Initialize the game, and create game resources."""
         pygame.init()
+        pygame.display.set_caption("Space Ship")
         self.clock = pygame.time.Clock()
         self.settings = Settings()
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_size = (self.screen.get_rect().width, self.screen.get_rect().height)
         self.background_color = self.settings.background_color
         self.ship = Ship(self)
+        self.enemies = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
-        pygame.display.set_caption("Space Ship")
+
+        self._create_fleet()
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -75,7 +79,14 @@ class SpaceShip:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.ship.blit_me()
+        self.enemies.draw(self.screen)
         pygame.display.flip()
+
+    def _create_fleet(self):
+        """Create the fleet of enemies."""
+        # Create an enemy
+        new_enemy = Enemy(self)
+        self.enemies.add(new_enemy)
 
 
 if __name__ == '__main__':

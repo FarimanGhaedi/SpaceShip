@@ -9,6 +9,7 @@ class Enemy(Sprite):
         """Initialize the enemy and set the starting position."""
         super().__init__()
         self.screen = sp_game.screen
+        self.settings = sp_game.settings
         # Load the enemy image and set its rect attribute.
         self.image = pygame.image.load('media/enemy_w90_h60.png')
         self.rect = self.image.get_rect()
@@ -17,3 +18,8 @@ class Enemy(Sprite):
         self.rect.y = self.rect.height
         # Store the exact horizontal position.
         self.x = float(self.rect.x)
+
+    def update(self):
+        """Move enemy to right"""
+        self.x += self.settings.enemy_speed
+        self.rect.x = self.x

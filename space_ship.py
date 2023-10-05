@@ -30,6 +30,7 @@ class SpaceShip:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_enemy()
             self._update_screen()
             self.clock.tick(60)
 
@@ -100,6 +101,10 @@ class SpaceShip:
         new_enemy.rect.x = x_position
         new_enemy.rect.y = y_position
         self.enemies.add(new_enemy)
+
+    def _update_enemy(self):
+        """Update the positions of all enemies in the fleet."""
+        self.enemies.update()
 
 
 if __name__ == '__main__':

@@ -104,7 +104,20 @@ class SpaceShip:
 
     def _update_enemy(self):
         """Update the positions of all enemies in the fleet."""
+        self._check_fleet_hit_edge()
         self.enemies.update()
+
+    def _check_fleet_hit_edge(self):
+        for enemy in self.enemies.sprites():
+            if enemy.check_enemy_hit_edge():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        """Drop the entire fleet and change the fleet's direction."""
+        for enemy in self.enemies.sprites():
+            enemy.rect.y += self.settings.enemy_drop_speed
+        self.settings.fleet_direction *= -1
 
 
 if __name__ == '__main__':

@@ -12,3 +12,5 @@ class Settings:
         self.bullet_color = (60, 60, 60)
         # Enemy settings
         self.enemy_speed = 1.0
+        self.enemy_drop_speed = 10
+        self.fleet_direction = 1  # direction: value 1 means right and -1 means left

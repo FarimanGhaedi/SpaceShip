@@ -73,6 +73,8 @@ class SpaceShip:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+        # Remove bullets and enemies that have collided.
+        collisions = pygame.sprite.groupcollide(self.bullets, self.enemies, True, True)
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
